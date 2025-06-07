@@ -75,7 +75,7 @@ public class MultiplicacaoHash {
 
     public void exibirComparacoes(int valor,int comparacoes){
         System.out.println("Valor: " + valor);
-        System.out.println("Comparações: " + comparacoes);
+        System.out.println("Total de Comparações: " + comparacoes);
     }
 }
 
