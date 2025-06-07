@@ -1,5 +1,7 @@
 package hasmultiplicacao;
 
+import hashgenerico.Registro;
+
 public class No {
     private Registro registro;
     private No proximo;

@@ -1,5 +1,6 @@
 package hasmultiplicacao;
 import hashgenerico.LeitorArquivo;
+import hashgenerico.Registro;
 
 import java.util.List;
 

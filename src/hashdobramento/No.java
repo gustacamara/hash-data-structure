@@ -1,4 +1,5 @@
 package hashdobramento;
+import hashgenerico.Registro;
 
 public class No {
     Registro valor;

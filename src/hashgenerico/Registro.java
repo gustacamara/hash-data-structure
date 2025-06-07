@@ -1,4 +1,4 @@
-package hasmultiplicacao;
+package hashgenerico;
 
 public class Registro {
 
@@ -16,6 +16,7 @@ public class Registro {
         this.codigo = codigo;
     }
 
+    @Override
     public String toString() {
         return String.format("%09d", codigo);
     }

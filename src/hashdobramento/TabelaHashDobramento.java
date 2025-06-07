@@ -1,4 +1,5 @@
 package hashdobramento;
+import hashgenerico.Registro;
 
 public class TabelaHashDobramento {
 
@@ -12,7 +13,7 @@ public class TabelaHashDobramento {
     }
 
     public void inserir(Registro registro) {
-        int indice = getIndice(registro.getValor());
+        int indice = getIndice(registro.getCodigo());
         No novoNode = new No(registro);
 
         if (tabela[indice] == null) {
@@ -30,7 +31,7 @@ public class TabelaHashDobramento {
 
         while (atual != null) {
             contador.incrementar();
-            if (atual.valor.getValor() == codigo) {
+            if (atual.valor.getCodigo() == codigo) {
                 return atual.valor;
             }
             atual = atual.proximo;
