@@ -1,46 +1,39 @@
 package hash.hashmultiplicacao;
 import hash.LeitorArquivo;
-import hash.Registro;
-
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        int tamanho = 1000;
+        TabelaHashMultiplicacao tabela = new TabelaHashMultiplicacao(tamanho);
+        String nome = tabela.getNome();
 
-        TabelaHashMultiplicacao hash = new TabelaHashMultiplicacao(1000);
         LeitorArquivo leitor = new LeitorArquivo();
-        List<Integer> dados = leitor.leitorArquivo("src/data/1mil.txt");
-
+        List<Integer> dados = leitor.leitorArquivo("src/data/20mil.txt");
 
         long inicio = System.currentTimeMillis();
         for (int valor : dados) {
-            Registro registro = new Registro(valor);
-            hash.inserirElemento(registro);
+            tabela.inserir(valor);
         }
 
         long fim = System.currentTimeMillis();
-        double segundos = (fim - inicio) / 1_000.0;
 
-        hash.exibirTabela();
-        System.out.println("Tempo de execução: " + segundos);
 
-        hash.exibirColisoes();
-
-        
+        // hash.exibirTabela(tamanho);
+        System.out.println("Nome tabela: " + nome);
+        System.out.println("Tempo de execução: " + (fim - inicio) + " ms");
+        System.out.println("Total de colisões: " + tabela.quantidadeColisao());
 
         long inicioBusca = System.currentTimeMillis();
         int elemento = 569460123;
-
-        boolean buscarElemento = hash.buscar(elemento);
-        System.out.println(buscarElemento);
-
-        long fimBusca = System.currentTimeMillis();
-        long duracaoBusca = fimBusca - inicioBusca;
-
-        System.out.println("Tempo de execução: " + duracaoBusca);
-
         
+        tabela.buscar(elemento);
 
+        int comparacoes = tabela.getComparacoesBusca(elemento);
+        long fimBusca = System.currentTimeMillis();
+
+        System.out.println("Comparações realizadas: " + comparacoes);
+        System.out.println("Tempo de busca: " + (fimBusca - inicioBusca) + " ms");
 
     }
 }
