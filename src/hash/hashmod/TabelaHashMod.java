@@ -1,21 +1,26 @@
-package hashmod;
+package hash.hashmod;
 
-public class TabelaHashMod {
-    No[] tabela;
-    int tamanho;
+import hash.ITabelaHash;
+import hash.No;
+import hash.Registro;
+
+public class TabelaHashMod implements ITabelaHash {
+    private Registro[] tabela;
+    private int tamanho;
+    private String nome = "Mod";
 
     public TabelaHashMod(int tamanho) {
-        this.tabela = new No[tamanho];
+        this.tabela = new Registro[tamanho];
         this.tamanho = tamanho;
     }
 
     public void inserir(int valor) {
         int indice = getLinhaChave(valor);
         if (tabela[indice] == null) {
-            tabela[indice] = new No(valor);
+            tabela[indice].setCodigo(valor);
         }
         else {
-            tabela[indice].setProximo(inserir(tabela[indice].getProximo(), valor));
+            tabela[indice].setNo(inserir(tabela[indice].getNo(), valor));
         }
     }
 
@@ -39,8 +44,15 @@ public class TabelaHashMod {
     }
 
     public void remove(int valor) {
-        No noChave = tabela[getLinhaChave(valor)];
-        remove(noChave.getProximo(), valor);
+        Registro reg = tabela[getLinhaChave(valor)];
+        if (reg.getCodigo() == valor) {
+            int novoCodigo = reg.getNo().getValor();
+            reg.getNo().setProximo(reg.getNo());
+            reg.setCodigo(novoCodigo);
+        } else {
+            remove(reg.getNo(), valor);
+
+        }
     }
 
     public void remove(No no, int valor) {
@@ -58,7 +70,7 @@ public class TabelaHashMod {
     }
 
     public boolean buscar(int valor) {
-        No noChave = tabela[getLinhaChave(valor)];
+        No noChave = tabela[getLinhaChave(valor)].getNo();
         if (noChave.getValor() == valor) {
             return true;
         }
@@ -71,8 +83,9 @@ public class TabelaHashMod {
 
     public void imprimir(int quantidade) {
         for (int i = 0; i < quantidade; i++) {
-            System.out.print("Linha " + i + ": ");
-            No current = tabela[i];
+            System.out.print("Linha " + i + " ");
+            No current = tabela[i].getNo();
+            System.out.println("[" + tabela[i].getCodigo() + "] : ");
             while (current != null) {
                 System.out.print(current.getValor() + " -> ");
                 current = current.getProximo();
@@ -81,7 +94,42 @@ public class TabelaHashMod {
         }
     }
 
+    public boolean temColisao(int valor){
+        return true;
+    }
+    public int quantidadeColisao(){
+        return 4;
+    };
+    public int getComparacoesBusca(int valor) {
+        return 5;
+    }
+
     public int getLinhaChave(int valor) {
         return valor % tamanho;
+    }
+
+    public Registro[] getTabela() {
+        return tabela;
+    }
+
+    public void setTabela(Registro[] tabela) {
+        this.tabela = tabela;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+
+    public void setTamanho(int tamanho) {
+        this.tamanho = tamanho;
+    }
+
+    @Override
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }
