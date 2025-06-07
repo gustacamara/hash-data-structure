@@ -1,5 +1,7 @@
 package hasmultiplicacao;
 
+import hashgenerico.Registro;
+
 public class TabelaHashMultiplicacao {
     public No[] tabela;
     public int tamanho;
