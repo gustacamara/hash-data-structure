@@ -1,8 +1,9 @@
 package hashgenerico;
 
-public class Registro {
+import java.util.Objects;
 
-    private int codigo;
+public class Registro {
+    private final int codigo;
 
     public Registro(int codigo) {
         this.codigo = codigo;
@@ -12,12 +13,16 @@ public class Registro {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Registro other = (Registro) o;
+        return this.codigo == other.codigo;
     }
 
     @Override
-    public String toString() {
-        return String.format("%09d", codigo);
+    public int hashCode() {
+        return Objects.hash(this.codigo);
     }
 }
