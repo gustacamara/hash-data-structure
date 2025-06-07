@@ -1,17 +1,20 @@
-package hasmultiplicacao;
+package hash.hashmultiplicacao;
+import hash.ITabelaHash;
+import hash.No;
 
-import hashgenerico.Registro;
-
-public class TabelaHashMultiplicacao {
+public class TabelaHashMultiplicacao implements ITabelaHash{
     public No[] tabela;
     public int tamanho;
-    public int colisoes = 0;
+    public int quantidadeColisoes = 0;
+    private String nome = "HashMultiplicação";
     private static final double constante = 0.6180339887;
+
 
     public TabelaHashMultiplicacao(int tamanho) {
         this.tabela = new No[tamanho];
         this.tamanho = tamanho;
     }
+
 
     private int funcaoHash(int valor) {
         double produto = valor * constante;
@@ -19,18 +22,20 @@ public class TabelaHashMultiplicacao {
         return (int)(tamanho * fracao);
     }
 
-    public void inserirElemento(Registro registro) {
-        int indice = funcaoHash(registro.getCodigo());
 
-        if (tabela[indice] != null) {
-            colisoes++;
+    @Override
+    public void inserir(int valor) {
+        int indice = funcaoHash(valor);
+
+        if (temColisao(valor)) {
+            quantidadeColisoes++;
         }
 
-        No novo = new No(registro);
+        No novo = new No(valor);
         novo.setProximo(tabela[indice]);
         tabela[indice] = novo;
-
     }
+
 
     public boolean removerElemento(int valor) {
         int indice = funcaoHash(valor);
@@ -39,8 +44,7 @@ public class TabelaHashMultiplicacao {
 
 
         while (atual != null) {
-            Registro reg = atual.getRegistro();
-            if (reg != null && reg.getCodigo() == valor) {
+            if (atual.getValor() == valor) {
                 if (anterior == null) {
                     tabela[indice] = atual.getProximo();
                 } else {
@@ -55,45 +59,71 @@ public class TabelaHashMultiplicacao {
         return false;
     }
 
+
+    @Override
     public boolean buscar(int valor) {
         int indice = funcaoHash(valor);
         No atual = tabela[indice];
+
+        while (atual != null) {
+            if (atual.getValor() == valor) {
+                return true;
+            }
+            atual = atual.getProximo();
+        }
+        return false;
+    }
+
+
+    @Override
+    public int getComparacoesBusca(int valor) {
         int comparacoes = 0;
+
+        int indice = funcaoHash(valor);
+        No atual = tabela[indice];
 
         while (atual != null) {
             comparacoes++;
-            if (atual.getRegistro().getCodigo() == valor) {
-                exibirComparacoes(valor, comparacoes);
-                return true;
+            if (atual.getValor() == valor) {
+                break;
             }
-
             atual = atual.getProximo();
         }
-        return  false;
-        }
 
-    public void exibirColisoes() {
-        System.out.println("Total de colisões: " + colisoes);
+        return comparacoes;
     }
 
-    public void exibirComparacoes(int valor,int comparacoes){
-        System.out.println("Valor: " + valor);
-        System.out.println("Total de Comparações: " + comparacoes);
+    
+    @Override
+    public boolean temColisao(int valor) {
+        int indice = funcaoHash(valor);
+        return tabela[indice] != null;
+    }
+
+    
+    @Override
+    public String getNome() {
+        return nome;
     }
 
 
-   public void exibirTabela() {
-        for (int i = 0; i < tamanho; i++) {
+    @Override
+    public int quantidadeColisao() {
+        return this.quantidadeColisoes;
+    }
+
+
+   public void exibirTabela(int quantidade) {
+        for (int i = 0; i < quantidade; i++) {
             System.out.print("[" + i + "]: ");
             No atual = tabela[i];
             while (atual != null) {
-                System.out.print(atual.getRegistro().getCodigo() + " -> ");
+                System.out.print(atual.getValor() + " -> ");
                 atual = atual.getProximo();
             }
             System.out.println("null");
         }
     }
-
 }
 
 
