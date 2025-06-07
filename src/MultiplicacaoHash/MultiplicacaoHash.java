@@ -60,7 +60,7 @@ public class MultiplicacaoHash {
         while (atual != null) {
             comparacoes++;
             if (atual.getValor() == valor) {
-                exibirComparacoes(valor, indice, comparacoes);
+                exibirComparacoes(valor, comparacoes);
                 return true;
             }
 
@@ -73,9 +73,8 @@ public class MultiplicacaoHash {
         System.out.println("Total de colisões: " + colisoes);
     }
 
-    public void exibirComparacoes(int valor, int indice, int comparacoes){
+    public void exibirComparacoes(int valor,int comparacoes){
         System.out.println("Valor: " + valor);
-        System.out.println("Índice: " + indice);
         System.out.println("Comparações: " + comparacoes);
     }
 }
