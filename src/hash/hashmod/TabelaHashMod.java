@@ -1,32 +1,36 @@
-package hashmod;
+package hash.hashmod;
 
-public class TabelaHashMod {
-    No[] tabela;
-    int tamanho;
+import hash.ITabelaHash;
+import hash.No;
+import hash.Registro;
+
+public class TabelaHashMod implements ITabelaHash {
+    private Registro[] tabela;
+    private int tamanho;
+    private String nome = "HashMod";
 
     public TabelaHashMod(int tamanho) {
-        this.tabela = new No[tamanho];
+        this.tabela = new Registro[tamanho];
         this.tamanho = tamanho;
     }
 
     public void inserir(int valor) {
         int indice = getLinhaChave(valor);
         if (tabela[indice] == null) {
-            tabela[indice] = new No(valor);
+            tabela[indice] = new Registro(valor);
         }
         else {
-            tabela[indice].setProximo(inserir(tabela[indice].getProximo(), valor));
+            tabela[indice].setNo(inserir(tabela[indice].getNo(), valor));
         }
     }
 
     public No inserir(No no, int valor) {
         No novoNo = new No(valor);
-        if (no == null || valor < no.getValor()) {
-            novoNo.setProximo(no);
+        if (no == null) {
             return novoNo;
         }
         No atual = no;
-        while (atual.getProximo() != null && atual.getProximo().getValor() < valor) {
+        while (atual.getProximo() != null && atual.getValor() < valor) {
             atual = atual.getProximo();
         }
         if (atual.getProximo() == null) {
@@ -39,8 +43,15 @@ public class TabelaHashMod {
     }
 
     public void remove(int valor) {
-        No noChave = tabela[getLinhaChave(valor)];
-        remove(noChave.getProximo(), valor);
+        Registro reg = tabela[getLinhaChave(valor)];
+        if (reg.getCodigo() == valor) {
+            int novoCodigo = reg.getNo().getValor();
+            reg.getNo().setProximo(reg.getNo());
+            reg.setCodigo(novoCodigo);
+        } else {
+            remove(reg.getNo(), valor);
+
+        }
     }
 
     public void remove(No no, int valor) {
@@ -58,12 +69,11 @@ public class TabelaHashMod {
     }
 
     public boolean buscar(int valor) {
-        No noChave = tabela[getLinhaChave(valor)];
-        if (noChave.getValor() == valor) {
-            return true;
+        No atual = tabela[getLinhaChave(valor)].getNo();
+        if (atual == null) {
+            return false;
         }
-        No atual = noChave.getProximo();
-        while (atual.getValor() != valor || atual.getProximo() != null) {
+        while (atual.getValor() != valor && atual.getProximo() != null) {
             atual = atual.getProximo();
         }
         return atual.getValor() == valor;
@@ -71,8 +81,9 @@ public class TabelaHashMod {
 
     public void imprimir(int quantidade) {
         for (int i = 0; i < quantidade; i++) {
-            System.out.print("Linha " + i + ": ");
-            No current = tabela[i];
+            System.out.print("Linha " + i + " ");
+            No current = tabela[i].getNo();
+            System.out.print("[" + tabela[i].getCodigo() + "] : ");
             while (current != null) {
                 System.out.print(current.getValor() + " -> ");
                 current = current.getProximo();
@@ -81,7 +92,58 @@ public class TabelaHashMod {
         }
     }
 
+    public boolean temColisao(int valor){
+        if (tabela[getLinhaChave(valor)] != null) {
+            return true;
+        }
+        return false;
+    }
+    public int quantidadeColisao(){
+        int colisoesTabela = 0;
+        for(Registro i: tabela) {
+            if (i != null) {
+                colisoesTabela ++;
+            }
+        }
+
+        return colisoesTabela;
+    };
+    public int getComparacoesBusca(int valor) {
+        int comparacoes = 1;
+        Registro reg = tabela[getLinhaChave(valor)];
+        if (reg == null) {
+            return 0;
+        }
+        if (reg.getCodigo() == valor) {
+            return comparacoes;
+        }
+        No atual = reg.getNo();
+        comparacoes ++;
+        if (atual == null) {
+            return comparacoes;
+        }
+        while (atual.getValor() != valor && atual.getProximo() != null) {
+            atual = atual.getProximo();
+            comparacoes ++;
+        }
+        return comparacoes;
+    }
+
     public int getLinhaChave(int valor) {
         return valor % tamanho;
     }
+
+    public Registro[] getTabela() {
+        return tabela;
+    }
+
+    public int getTamanho() {
+        return tamanho;
+    }
+
+    @Override
+    public String getNome() {
+        return nome;
+    }
+
 }
