@@ -17,9 +17,15 @@ import {
 } from "@/components/ui/chart"
 
 const chartData = [
-  { nome: "1 Milhão", ms: 200 },
-  { nome: "10 Milhões", ms: 395 },
-  { nome: "20 Milhões", ms: 120 },
+  { nome: "1 Milhão", ms: 3304 },
+  { nome: "1 Milhão", ms: 2345 },
+  { nome: "1 Milhão", ms: 4123 },
+  { nome: "10 Milhões", ms: 6233 },
+  { nome: "10 Milhões", ms: 1236 },
+  { nome: "10 Milhões", ms: 2345 },
+  { nome: "20 Milhões", ms: 3456 },
+  { nome: "20 Milhões", ms: 4534 },
+  { nome: "20 Milhões", ms: 1234 },
 ]
 
 const chartConfig = {
@@ -40,13 +46,13 @@ function calculaVariacao(): number {
 
 export function BarrasTempoPorHashResto() {
   return (
-    <Card className="grid grid-cols-2-col gap-4">
+    <Card className="grid col-span-2 gap-4 ">
       <CardHeader>
         <CardTitle>Gráfico do Hash de Mod</CardTitle>
-        <CardDescription>Compara as quantidades de dados</CardDescription>
+        <CardDescription>Compara a inserção das quantidades de dados</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
+        <ChartContainer config={chartConfig} className="h-[240px] w-full">
           <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
             <XAxis

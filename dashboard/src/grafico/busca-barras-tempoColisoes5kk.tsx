@@ -19,49 +19,45 @@ import {
 export const description = "A multiple bar chart"
 
 const chartData = [
-  { nome: "Dobramento", vinteKK: 1865, dezKK: 2082, umKK: 2345 },
-  { nome: "Dobramento", vinteKK: 1923, dezKK: 1450, umKK: 2789 },
-  { nome: "Dobramento", vinteKK: 1750, dezKK: 2231, umKK: 2104 },
-  { nome: "Multiplicação", vinteKK: 1667, dezKK: 2105, umKK: 2190 },
-  { nome: "Multiplicação", vinteKK: 1789, dezKK: 2450, umKK: 2567 },
-  { nome: "Multiplicação", vinteKK: 1623, dezKK: 2234, umKK: 2412 },
-  { nome: "Resto", vinteKK: 1168, dezKK: 2301, umKK: 2467 },
-  { nome: "Resto", vinteKK: 1245, dezKK: 2490, umKK: 2781 },
-  { nome: "Resto", vinteKK: 1199, dezKK: 2387, umKK: 2654 },
+  { nome: "Dobramento", ms: 186, colisoes: 12 },
+  { nome: "Dobramento", ms: 145, colisoes: 45 },
+  { nome: "Dobramento", ms: 210, colisoes: 45 },
+  { nome: "Multiplicação", ms: 186, colisoes: 12 },
+  { nome: "Multiplicação", ms: 145, colisoes: 45 },
+  { nome: "Multiplicação", ms: 210, colisoes: 45 },
+  { nome: "Divisão", ms: 186, colisoes: 12 },
+  { nome: "Divisão", ms: 145, colisoes: 45 },
+  { nome: "Divisão", ms: 210, colisoes: 45 },
 ]
 
 const chartConfig = {
-  vinteKK: {
-    label: "20KK",
+  ms: {
+    label: "ms",
+    color: "var(--chart-5)",
+  },
+  colisoes: {
+    label: "colisoes",
     color: "var(--chart-1)",
-  },
-  dezKK: {
-    label: "10KK",
-    color: "var(--chart-2)",
-  },
-  umKK: {
-    label: "1KK",
-    color: "var(--chart-3)",
   },
 } satisfies ChartConfig
 function calculaVariacao(): number {
-  let media: number = 0;
+  let media: number = 0
   chartData.map((value) => {
-    media += value.vinteKK
-    media += value.dezKK
-    media += value.umKK
+    media += value.ms
   })
-  media = media / (3 * chartData.length)
-  media = Math.round(media);
-  return media;
+  media = media / chartData.length
+  media = Math.round(media)
+  return media
 }
 
-export function BarrasTempoPorHashGeral() {
+export function BarrasTempoColisoesCincoKK() {
   return (
-    <Card className="grid grid-cols-2-col col-span-6 gap-4">
+    <Card className="grid grid-cols-2-col col-span-1 gap-4">
       <CardHeader>
-        <CardTitle>Gráfico de barras geral</CardTitle>
-        <CardDescription>Comparativo dos tipos de hash</CardDescription>
+        <CardTitle>Gráfico de Colisões e buscas</CardTitle>
+        <CardDescription>
+          Comparativo com <span className="text-accent-foreground">5 Milhões</span>
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-[240px] w-full">
@@ -78,8 +74,8 @@ export function BarrasTempoPorHashGeral() {
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="umKK" fill="var(--color-umKK)" radius={4} />
-            <Bar dataKey="dezKK" fill="var(--color-dezKK)" radius={4} />
+            <Bar dataKey="ms" fill="var(--color-ms)" radius={4} />
+            <Bar dataKey="colisoes" fill="var(--color-colisoes)" radius={4} />
             <Bar dataKey="vinteKK" fill="var(--color-vinteKK)" radius={4} />
           </BarChart>
         </ChartContainer>
@@ -89,8 +85,8 @@ export function BarrasTempoPorHashGeral() {
           Execução média geral: {calculaVariacao()} ms<Gauge className="h-4 w-4" />
         </div>
         <div className="text-muted-foreground leading-none">
-          Mostra todos os tipos de hash e seus respectivos tempos de acordo com
-          cada quantidade de dados.
+          Mostra a quantidade de colisões e o tempo para efetuar a busca
+          com <span className="text-accent-foreground">5 Milhões</span> de linhas.
         </div>
       </CardFooter>
     </Card>

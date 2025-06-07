@@ -17,9 +17,15 @@ import {
 } from "@/components/ui/chart"
 
 const dadosGrafico = [
-  { nome: "1 Milhão", ms: 120 },
-  { nome: "10 Milhões", ms: 210 },
-  { nome: "20 Milhões", ms: 175 },
+  { nome: "1 Milhão", ms: 1304 },
+  { nome: "1 Milhão", ms: 2345 },
+  { nome: "1 Milhão", ms: 4123 },
+  { nome: "10 Milhões", ms: 6233 },
+  { nome: "10 Milhões", ms: 1236 },
+  { nome: "10 Milhões", ms: 2345 },
+  { nome: "20 Milhões", ms: 3456 },
+  { nome: "20 Milhões", ms: 4534 },
+  { nome: "20 Milhões", ms: 1234 },
 ]
 
 const chartConfig = {
@@ -40,13 +46,13 @@ function calculaVariacao(): number {
 
 export function BarrasTempoPorHashDobramento() {
   return (
-    <Card className="grid grid-cols-2-col gap-4">
+    <Card className="grid grid-cols-2-col gap-4 col-span-3">
       <CardHeader>
         <CardTitle>Gráfico do Hash de dobramento</CardTitle>
-        <CardDescription>Compara as quantidades de dados</CardDescription>
+        <CardDescription>Compara a inserção das quantidades de dados</CardDescription>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig}>
+      <CardContent >
+        <ChartContainer config={chartConfig} >
           <BarChart accessibilityLayer data={dadosGrafico}>
             <CartesianGrid vertical={false} />
             <XAxis
