@@ -11,41 +11,31 @@ public class TabelaHashMod {
 
     public void inseri(int valor) {
         int indice = getLinhaChave(valor);
-        Node noChave = tabela[indice];
-        if (noChave == null) {
+        if (tabela[indice] == null) {
             tabela[indice] = new Node(valor);
-        } else {
-            inseri(noChave.getProximo(), valor);
+        }
+        else {
+            tabela[indice].setProximo(inseri(tabela[indice].getProximo(), valor));
         }
     }
 
-    public void inseri(Node no, int valor) {
-        if (no == null) {
-            no = new Node(valor);
-            return;
+    public Node inseri(Node node, int valor) {
+        Node novoNode = new Node(valor);
+        if (node == null || valor < node.getValor()) {
+            novoNode.setProximo(node);
+            return novoNode;
         }
-        Node anterior = no;
-        Node atual = no;
-
-        while (atual.getValor() < valor || atual.getProximo() != null) {
-            anterior = atual;
+        Node atual = node;
+        while (atual.getProximo() != null && atual.getProximo().getValor() < valor) {
             atual = atual.getProximo();
         }
-
-        if (atual.getValor() == valor) {
-            anterior = atual;
-            atual.setProximo(new Node(valor));
-            atual.getProximo().setProximo(anterior.getProximo());
-            return;
+        if (atual.getProximo() == null) {
+            atual.setProximo(novoNode);
+            return node;
         }
-        if (atual.getValor() > valor) {
-            Node noInserir = new Node(valor);
-            anterior.setProximo(noInserir);
-            noInserir.setProximo(atual);
-            return;
-        }
-
-        inseri(atual, valor);
+        novoNode.setProximo(atual.getProximo());
+        atual.setProximo(novoNode);
+        return node;
     }
 
     public void remove(int valor) {
@@ -77,6 +67,18 @@ public class TabelaHashMod {
             atual = atual.getProximo();
         }
         return atual.getValor() == valor;
+    }
+
+    public void imprime(int quantidade) {
+        for (int i = 0; i < quantidade; i++) {
+            System.out.print("Linha " + i + ": ");
+            Node current = tabela[i];
+            while (current != null) {
+                System.out.print(current.getValor() + " -> ");
+                current = current.getProximo();
+            }
+            System.out.println("null");
+        }
     }
 
     public int getLinhaChave(int valor) {
