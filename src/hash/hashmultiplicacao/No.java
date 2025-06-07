@@ -1,4 +1,4 @@
-package hasmultiplicacao;
+package hash.hashmultiplicacao;
 
 import hashgenerico.Registro;
 
