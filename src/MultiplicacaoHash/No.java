@@ -1,10 +1,10 @@
 package MultiplicacaoHash;
 
-public class Node {
+public class No {
     private Registro registro;
-    private Node proximo;
+    private No proximo;
 
-    public Node(Registro registro) {
+    public No(Registro registro) {
         this.registro = registro;
         this.proximo = null;
     }
@@ -17,11 +17,11 @@ public class Node {
         this.registro = registro;
     }
 
-    public Node getProximo() {
+    public No getProximo() {
         return proximo;
     }
 
-    public void setProximo(Node proximo) {
+    public void setProximo(No proximo) {
         this.proximo = proximo;
     }
 }

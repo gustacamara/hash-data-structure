@@ -1,51 +1,51 @@
 package modHash;
 
 public class TabelaHashMod {
-    Node[] tabela;
+    No[] tabela;
     int tamanho;
 
     public TabelaHashMod(int tamanho) {
-        this.tabela = new Node[tamanho];
+        this.tabela = new No[tamanho];
         this.tamanho = tamanho;
     }
 
-    public void inseri(int valor) {
+    public void inserir(int valor) {
         int indice = getLinhaChave(valor);
         if (tabela[indice] == null) {
-            tabela[indice] = new Node(valor);
+            tabela[indice] = new No(valor);
         }
         else {
-            tabela[indice].setProximo(inseri(tabela[indice].getProximo(), valor));
+            tabela[indice].setProximo(inserir(tabela[indice].getProximo(), valor));
         }
     }
 
-    public Node inseri(Node node, int valor) {
-        Node novoNode = new Node(valor);
-        if (node == null || valor < node.getValor()) {
-            novoNode.setProximo(node);
-            return novoNode;
+    public No inserir(No no, int valor) {
+        No novoNo = new No(valor);
+        if (no == null || valor < no.getValor()) {
+            novoNo.setProximo(no);
+            return novoNo;
         }
-        Node atual = node;
+        No atual = no;
         while (atual.getProximo() != null && atual.getProximo().getValor() < valor) {
             atual = atual.getProximo();
         }
         if (atual.getProximo() == null) {
-            atual.setProximo(novoNode);
-            return node;
+            atual.setProximo(novoNo);
+            return no;
         }
-        novoNode.setProximo(atual.getProximo());
-        atual.setProximo(novoNode);
-        return node;
+        novoNo.setProximo(atual.getProximo());
+        atual.setProximo(novoNo);
+        return no;
     }
 
     public void remove(int valor) {
-        Node noChave = tabela[getLinhaChave(valor)];
+        No noChave = tabela[getLinhaChave(valor)];
         remove(noChave.getProximo(), valor);
     }
 
-    public void remove(Node node, int valor) {
-        Node anterior = node;
-        Node atual = node;
+    public void remove(No no, int valor) {
+        No anterior = no;
+        No atual = no;
 
         while (atual.getValor() != valor || atual.getProximo() != null) {
             anterior = atual;
@@ -58,21 +58,21 @@ public class TabelaHashMod {
     }
 
     public boolean buscar(int valor) {
-        Node nodeChave = tabela[getLinhaChave(valor)];
-        if (nodeChave.getValor() == valor) {
+        No noChave = tabela[getLinhaChave(valor)];
+        if (noChave.getValor() == valor) {
             return true;
         }
-        Node atual = nodeChave.getProximo();
+        No atual = noChave.getProximo();
         while (atual.getValor() != valor || atual.getProximo() != null) {
             atual = atual.getProximo();
         }
         return atual.getValor() == valor;
     }
 
-    public void imprime(int quantidade) {
+    public void imprimir(int quantidade) {
         for (int i = 0; i < quantidade; i++) {
             System.out.print("Linha " + i + ": ");
-            Node current = tabela[i];
+            No current = tabela[i];
             while (current != null) {
                 System.out.print(current.getValor() + " -> ");
                 current = current.getProximo();

@@ -1,10 +1,10 @@
 package modHash;
 
-public class Node {
+public class No {
     private int valor;
-    private Node proximo;
+    private No proximo;
 
-    public Node(int valor) {
+    public No(int valor) {
         this.valor = valor;
         this.proximo = null;
     }
@@ -13,11 +13,11 @@ public class Node {
         return valor;
     }
 
-    public Node getProximo() {
+    public No getProximo() {
         return proximo;
     }
 
-    public void setProximo(Node proximo) {
+    public void setProximo(No proximo) {
         this.proximo = proximo;
     }
 }

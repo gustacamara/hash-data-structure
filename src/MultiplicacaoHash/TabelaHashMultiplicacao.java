@@ -1,13 +1,13 @@
 package MultiplicacaoHash;
 
-public class MultiplicacaoHash {
-    public Node[] tabela;
+public class TabelaHashMultiplicacao {
+    public No[] tabela;
     public int tamanho;
     public int colisoes = 0;
     private static final double constante = 0.6180339887;
 
-    public MultiplicacaoHash(int tamanho) {
-        this.tabela = new Node[tamanho];
+    public TabelaHashMultiplicacao(int tamanho) {
+        this.tabela = new No[tamanho];
         this.tamanho = tamanho;
     }
 
@@ -17,23 +17,23 @@ public class MultiplicacaoHash {
         return (int)(tamanho * fracao);
     }
 
-    public void insereElemento(Registro registro) {
+    public void inserirElemento(Registro registro) {
         int indice = funcaoHash(registro.getCodigo());
 
         if (tabela[indice] != null) {
             colisoes++;
         }
 
-        Node novo = new Node(registro);
+        No novo = new No(registro);
         novo.setProximo(tabela[indice]);
         tabela[indice] = novo;
 
     }
 
-    public boolean removeElemento(int valor) {
+    public boolean removerElemento(int valor) {
         int indice = funcaoHash(valor);
-        Node atual = tabela[indice];
-        Node anterior = null;
+        No atual = tabela[indice];
+        No anterior = null;
 
 
         while (atual != null) {
@@ -55,7 +55,7 @@ public class MultiplicacaoHash {
 
     public boolean buscar(int valor) {
         int indice = funcaoHash(valor);
-        Node atual = tabela[indice];
+        No atual = tabela[indice];
         int comparacoes = 0;
 
         while (atual != null) {
@@ -83,7 +83,7 @@ public class MultiplicacaoHash {
    public void exibirTabela() {
         for (int i = 0; i < tamanho; i++) {
             System.out.print("[" + i + "]: ");
-            Node atual = tabela[i];
+            No atual = tabela[i];
             while (atual != null) {
                 System.out.print(atual.getRegistro().getCodigo() + " -> ");
                 atual = atual.getProximo();

@@ -1,4 +1,4 @@
-package MultiplicacaoHash;
+package Utilidades;
 
 import java.io.*;
 import java.util.ArrayList;
