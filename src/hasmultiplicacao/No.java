@@ -1,4 +1,4 @@
-package MultiplicacaoHash;
+package hasmultiplicacao;
 
 public class No {
     private Registro registro;

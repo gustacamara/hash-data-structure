@@ -1,4 +1,4 @@
-package MultiplicacaoHash;
+package hasmultiplicacao;
 
 public class TabelaHashMultiplicacao {
     public No[] tabela;

@@ -1,4 +1,4 @@
-package modHash;
+package hashmod;
 
 public class TabelaHashMod {
     No[] tabela;

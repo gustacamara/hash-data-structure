@@ -1,4 +1,4 @@
-package modHash;
+package hashmod;
 
 public class No {
     private int valor;

@@ -1,7 +1,5 @@
 package hashdobramento;
 
-import hashgenerico.Registro;
-
 public class TabelaHashDobramento {
 
     private No[] tabela;

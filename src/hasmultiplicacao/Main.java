@@ -1,5 +1,5 @@
-package MultiplicacaoHash;
-import Utilidades.LeitorArquivo;
+package hasmultiplicacao;
+import hashgenerico.LeitorArquivo;
 
 import java.util.List;
 
