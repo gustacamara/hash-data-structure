@@ -17,14 +17,14 @@ public class MultiplicacaoHash {
         return (int)(tamanho * fracao);
     }
 
-    public void insereElemento(int elemento) {
-        int indice = funcaoHash(elemento);
+    public void insereElemento(Registro registro) {
+        int indice = funcaoHash(registro.getCodigo());
 
         if (tabela[indice] != null) {
             colisoes++;
         }
 
-        Node novo = new Node(elemento);
+        Node novo = new Node(registro);
         novo.setProximo(tabela[indice]);
         tabela[indice] = novo;
 
@@ -37,7 +37,8 @@ public class MultiplicacaoHash {
 
 
         while (atual != null) {
-            if (atual.getValor() == valor) {
+            Registro reg = atual.getRegistro();
+            if (reg != null && reg.getCodigo() == valor) {
                 if (anterior == null) {
                     tabela[indice] = atual.getProximo();
                 } else {
@@ -59,7 +60,7 @@ public class MultiplicacaoHash {
 
         while (atual != null) {
             comparacoes++;
-            if (atual.getValor() == valor) {
+            if (atual.getRegistro().getCodigo() == valor) {
                 exibirComparacoes(valor, comparacoes);
                 return true;
             }
@@ -77,6 +78,20 @@ public class MultiplicacaoHash {
         System.out.println("Valor: " + valor);
         System.out.println("Total de Comparações: " + comparacoes);
     }
+
+
+   public void exibirTabela() {
+        for (int i = 0; i < tamanho; i++) {
+            System.out.print("[" + i + "]: ");
+            Node atual = tabela[i];
+            while (atual != null) {
+                System.out.print(atual.getRegistro().getCodigo() + " -> ");
+                atual = atual.getProximo();
+            }
+            System.out.println("null");
+        }
+    }
+
 }
 
 
