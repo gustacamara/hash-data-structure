@@ -7,7 +7,7 @@ import hash.Registro;
 public class TabelaHashMod implements ITabelaHash {
     private Registro[] tabela;
     private int tamanho;
-    private String nome = "Mod";
+    private String nome = "HashMod";
 
     public TabelaHashMod(int tamanho) {
         this.tabela = new Registro[tamanho];
@@ -17,7 +17,7 @@ public class TabelaHashMod implements ITabelaHash {
     public void inserir(int valor) {
         int indice = getLinhaChave(valor);
         if (tabela[indice] == null) {
-            tabela[indice].setCodigo(valor);
+            tabela[indice] = new Registro(valor);
         }
         else {
             tabela[indice].setNo(inserir(tabela[indice].getNo(), valor));
@@ -26,12 +26,11 @@ public class TabelaHashMod implements ITabelaHash {
 
     public No inserir(No no, int valor) {
         No novoNo = new No(valor);
-        if (no == null || valor < no.getValor()) {
-            novoNo.setProximo(no);
+        if (no == null) {
             return novoNo;
         }
         No atual = no;
-        while (atual.getProximo() != null && atual.getProximo().getValor() < valor) {
+        while (atual.getProximo() != null && atual.getValor() < valor) {
             atual = atual.getProximo();
         }
         if (atual.getProximo() == null) {
@@ -70,12 +69,11 @@ public class TabelaHashMod implements ITabelaHash {
     }
 
     public boolean buscar(int valor) {
-        No noChave = tabela[getLinhaChave(valor)].getNo();
-        if (noChave.getValor() == valor) {
-            return true;
+        No atual = tabela[getLinhaChave(valor)].getNo();
+        if (atual == null) {
+            return false;
         }
-        No atual = noChave.getProximo();
-        while (atual.getValor() != valor || atual.getProximo() != null) {
+        while (atual.getValor() != valor && atual.getProximo() != null) {
             atual = atual.getProximo();
         }
         return atual.getValor() == valor;
@@ -85,7 +83,7 @@ public class TabelaHashMod implements ITabelaHash {
         for (int i = 0; i < quantidade; i++) {
             System.out.print("Linha " + i + " ");
             No current = tabela[i].getNo();
-            System.out.println("[" + tabela[i].getCodigo() + "] : ");
+            System.out.print("[" + tabela[i].getCodigo() + "] : ");
             while (current != null) {
                 System.out.print(current.getValor() + " -> ");
                 current = current.getProximo();
@@ -95,13 +93,40 @@ public class TabelaHashMod implements ITabelaHash {
     }
 
     public boolean temColisao(int valor){
-        return true;
+        if (tabela[getLinhaChave(valor)] != null) {
+            return true;
+        }
+        return false;
     }
     public int quantidadeColisao(){
-        return 4;
+        int colisoesTabela = 0;
+        for(Registro i: tabela) {
+            if (i != null) {
+                colisoesTabela ++;
+            }
+        }
+
+        return colisoesTabela;
     };
     public int getComparacoesBusca(int valor) {
-        return 5;
+        int comparacoes = 1;
+        Registro reg = tabela[getLinhaChave(valor)];
+        if (reg == null) {
+            return 0;
+        }
+        if (reg.getCodigo() == valor) {
+            return comparacoes;
+        }
+        No atual = reg.getNo();
+        comparacoes ++;
+        if (atual == null) {
+            return comparacoes;
+        }
+        while (atual.getValor() != valor && atual.getProximo() != null) {
+            atual = atual.getProximo();
+            comparacoes ++;
+        }
+        return comparacoes;
     }
 
     public int getLinhaChave(int valor) {
@@ -112,16 +137,8 @@ public class TabelaHashMod implements ITabelaHash {
         return tabela;
     }
 
-    public void setTabela(Registro[] tabela) {
-        this.tabela = tabela;
-    }
-
     public int getTamanho() {
         return tamanho;
-    }
-
-    public void setTamanho(int tamanho) {
-        this.tamanho = tamanho;
     }
 
     @Override
@@ -129,7 +146,4 @@ public class TabelaHashMod implements ITabelaHash {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 }
