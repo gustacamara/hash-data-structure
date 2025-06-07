@@ -5,29 +5,31 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         int tamanho = 1000;
-        TabelaHashMultiplicacao hash = new TabelaHashMultiplicacao(tamanho);
+        TabelaHashMultiplicacao tabela = new TabelaHashMultiplicacao(tamanho);
+        String nome = tabela.getNome();
 
         LeitorArquivo leitor = new LeitorArquivo();
         List<Integer> dados = leitor.leitorArquivo("src/data/20mil.txt");
 
         long inicio = System.currentTimeMillis();
         for (int valor : dados) {
-            hash.inserir(valor);
+            tabela.inserir(valor);
         }
 
         long fim = System.currentTimeMillis();
 
 
         // hash.exibirTabela(tamanho);
+        System.out.println("Nome tabela: " + nome);
         System.out.println("Tempo de execução: " + (fim - inicio) + " ms");
-        System.out.println("Total de colisões: " + hash.quantidadeColisao());
+        System.out.println("Total de colisões: " + tabela.quantidadeColisao());
 
         long inicioBusca = System.currentTimeMillis();
         int elemento = 569460123;
         
-        hash.buscar(elemento);
+        tabela.buscar(elemento);
 
-        int comparacoes = hash.getComparacoesBusca(elemento);
+        int comparacoes = tabela.getComparacoesBusca(elemento);
         long fimBusca = System.currentTimeMillis();
 
         System.out.println("Comparações realizadas: " + comparacoes);
