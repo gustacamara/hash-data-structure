@@ -1,10 +1,12 @@
-package MultiplicacaoHash;
+package hasmultiplicacao;
+import hashgenerico.LeitorArquivo;
+
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
 
-        MultiplicacaoHash hash = new MultiplicacaoHash(1000);
+        TabelaHashMultiplicacao hash = new TabelaHashMultiplicacao(1000);
         LeitorArquivo leitor = new LeitorArquivo();
         List<Integer> dados = leitor.leitorArquivo("src/data/1mil.txt");
 
@@ -12,7 +14,7 @@ public class Main {
         long inicio = System.currentTimeMillis();
         for (int valor : dados) {
             Registro registro = new Registro(valor);
-            hash.insereElemento(registro);
+            hash.inserirElemento(registro);
         }
 
         long fim = System.currentTimeMillis();

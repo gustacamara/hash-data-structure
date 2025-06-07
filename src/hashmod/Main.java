@@ -1,7 +1,6 @@
-package modHash;
+package hashmod;
 
 import java.util.Random;
-import java.util.Timer;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,7 +8,7 @@ public class Main {
         Random rand = new Random();
         long inicio = System.currentTimeMillis();
         for (int i = 0; i < 1_000_000; i++) {
-            tabela.inseri(rand.nextInt(1_000_000, 2_000_000));
+            tabela.inserir(rand.nextInt(1_000_000, 2_000_000));
         }
         long fim =  (System.currentTimeMillis() - inicio);
         System.out.println(fim);

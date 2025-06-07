@@ -1,4 +1,4 @@
-package MultiplicacaoHash;
+package hashgenerico;
 
 import java.io.*;
 import java.util.ArrayList;

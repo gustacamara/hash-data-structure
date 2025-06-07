@@ -1,4 +1,4 @@
-package hashgenerico;
+package hashdobramento;
 
 public class Registro {
     private int valor;
