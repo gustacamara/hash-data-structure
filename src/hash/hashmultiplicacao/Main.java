@@ -1,5 +1,7 @@
 package hash.hashmultiplicacao;
 import hash.LeitorArquivo;
+import hash.Relatorio;
+
 import java.util.List;
 
 public class Main {
@@ -16,12 +18,13 @@ public class Main {
             tabela.inserir(valor);
         }
 
+
         long fim = System.currentTimeMillis();
+        long tempo = (fim - inicio);
 
 
-        // hash.exibirTabela(tamanho);
         System.out.println("Nome tabela: " + nome);
-        System.out.println("Tempo de execução: " + (fim - inicio) + " ms");
+        System.out.println("Tempo de execução: " + tempo + " ms");
         System.out.println("Total de colisões: " + tabela.quantidadeColisao());
 
         long inicioBusca = System.currentTimeMillis();
@@ -31,9 +34,19 @@ public class Main {
 
         int comparacoes = tabela.getComparacoesBusca(elemento);
         long fimBusca = System.currentTimeMillis();
+        long tempoBusca = (fimBusca - inicioBusca);
 
         System.out.println("Comparações realizadas: " + comparacoes);
-        System.out.println("Tempo de busca: " + (fimBusca - inicioBusca) + " ms");
+        System.out.println("Tempo de busca: " + tempoBusca + " ms");
+        
 
+        // Sobre os paramentros do relatório: Tirando o tempo(long), tamanho(int), e as comparações, o restante dos parametros são do tipo String
+        // Relatorio.gerarRelatorioInsercao(nome, "Insercao", tamanho, "1 milhões", tempo); 
+        // Relatorio.gerarRelatorioInsercao(nome, "Insercao", tamanho, "5 milhões", tempo);
+        Relatorio.gerarRelatorioInsercao(nome, "Insercao", tamanho, "20 milhões", tempo);
+
+        // Relatorio.gerarRelatorioBusca(nome, "Busca", tamanho, "1 milhões", comparacoes, tempoBusca);
+        // Relatorio.gerarRelatorioBusca(nome, "Busca", tamanho, "5 milhões", comparacoes, tempoBusca);
+        Relatorio.gerarRelatorioBusca(nome, "Busca", tamanho, "20 milhões", comparacoes,tempoBusca);
     }
 }
