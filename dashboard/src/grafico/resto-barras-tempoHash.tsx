@@ -1,5 +1,6 @@
 import { Gauge } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { dadosGraficoResto } from "@/data/data"
 
 import {
   Card,
@@ -16,30 +17,19 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-const chartData = [
-  { nome: "1 Milhão", ms: 3304 },
-  { nome: "1 Milhão", ms: 2345 },
-  { nome: "1 Milhão", ms: 4123 },
-  { nome: "10 Milhões", ms: 6233 },
-  { nome: "10 Milhões", ms: 1236 },
-  { nome: "10 Milhões", ms: 2345 },
-  { nome: "20 Milhões", ms: 3456 },
-  { nome: "20 Milhões", ms: 4534 },
-  { nome: "20 Milhões", ms: 1234 },
-]
-
 const chartConfig = {
   ms: {
     label: "ms",
   },
 } satisfies ChartConfig
 
+
 function calculaVariacao(): number {
   let media: number = 0;
-  chartData.map((value) => {
+  dadosGraficoResto.map((value) => {
     media += value.ms
   })
-  media = media / chartData.length
+  media = media / dadosGraficoResto.length
   media = Math.round(media);
   return media;
 }
@@ -53,14 +43,14 @@ export function BarrasTempoPorHashResto() {
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-[240px] w-full">
-          <BarChart accessibilityLayer data={chartData}>
+          <BarChart accessibilityLayer data={dadosGraficoResto}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="nome"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 4)}
+              tickFormatter={(_, valor) => (dadosGraficoResto[valor]?.legenda ?? "").slice(0, 4)}
             />
             <ChartTooltip
               cursor={false}

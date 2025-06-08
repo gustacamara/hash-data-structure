@@ -1,5 +1,6 @@
 import { Gauge } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { dadosGraficoGeral } from "@/data/data"
 
 import {
   Card,
@@ -15,20 +16,6 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
-
-export const description = "A multiple bar chart"
-
-const chartData = [
-  { nome: "Dobramento", vinteKK: 1865, dezKK: 2082, umKK: 2345 },
-  { nome: "Dobramento", vinteKK: 1923, dezKK: 1450, umKK: 2789 },
-  { nome: "Dobramento", vinteKK: 1750, dezKK: 2231, umKK: 2104 },
-  { nome: "Multiplicação", vinteKK: 1667, dezKK: 2105, umKK: 2190 },
-  { nome: "Multiplicação", vinteKK: 1789, dezKK: 2450, umKK: 2567 },
-  { nome: "Multiplicação", vinteKK: 1623, dezKK: 2234, umKK: 2412 },
-  { nome: "Resto", vinteKK: 1168, dezKK: 2301, umKK: 2467 },
-  { nome: "Resto", vinteKK: 1245, dezKK: 2490, umKK: 2781 },
-  { nome: "Resto", vinteKK: 1199, dezKK: 2387, umKK: 2654 },
-]
 
 const chartConfig = {
   vinteKK: {
@@ -46,12 +33,12 @@ const chartConfig = {
 } satisfies ChartConfig
 function calculaVariacao(): number {
   let media: number = 0;
-  chartData.map((value) => {
-    media += value.vinteKK
-    media += value.dezKK
-    media += value.umKK
+  dadosGraficoGeral.map((valor) => {
+    media += valor.vinteKK
+    media += valor.dezKK
+    media += valor.umKK
   })
-  media = media / (3 * chartData.length)
+  media = media / (3 * dadosGraficoGeral.length)
   media = Math.round(media);
   return media;
 }
@@ -65,23 +52,23 @@ export function BarrasTempoPorHashGeral() {
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-[240px] w-full">
-          <BarChart accessibilityLayer data={chartData}>
+            <BarChart accessibilityLayer data={dadosGraficoGeral}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="nome"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
+              tickFormatter={(_, valor) => dadosGraficoGeral[valor]?.legenda ?? ""}
             />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dashed" />}
             />
-            <Bar dataKey="umKK" fill="var(--color-umKK)" radius={4} />
-            <Bar dataKey="dezKK" fill="var(--color-dezKK)" radius={4} />
-            <Bar dataKey="vinteKK" fill="var(--color-vinteKK)" radius={4} />
-          </BarChart>
+            <Bar dataKey="umKK" fill="var(--color-umKK)" stackId='a' />
+            <Bar dataKey="dezKK" fill="var(--color-dezKK)" stackId='a' />
+            <Bar dataKey="vinteKK" fill="var(--color-vinteKK)" stackId='a' />
+            </BarChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col items-start gap-2 text-sm">
