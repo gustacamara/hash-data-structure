@@ -38,6 +38,8 @@ Trabalho da disciplina de Resolução de Problemas Estruturados em Computação,
 * Graficos com as comparações de Buscas para cada metódo de implementação das tabelas Hash:
 ![alt text](graficosBusca.png)
 
+[Link para visualisar os gráficos.](https://gustacamara.github.io/hash-data-structure/)
+
 # Análises
 
 Com base nas análises feitas, é possível concluir que o metódo de Multiplicação teve um desempenho melhor para efetuar as inserções, em seguida vem o de Módulo, e por fim o de dobramento possui o pior desempenho.
