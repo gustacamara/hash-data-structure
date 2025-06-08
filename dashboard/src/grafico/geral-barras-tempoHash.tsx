@@ -22,8 +22,8 @@ const chartConfig = {
     label: "20KK",
     color: "var(--chart-1)",
   },
-  dezKK: {
-    label: "10KK",
+  cincoKK: {
+    label: "5KK",
     color: "var(--chart-2)",
   },
   umKK: {
@@ -35,7 +35,7 @@ function calculaVariacao(): number {
   let media: number = 0;
   dadosGraficoGeral.map((valor) => {
     media += valor.vinteKK
-    media += valor.dezKK
+    media += valor.cincoKK
     media += valor.umKK
   })
   media = media / (3 * dadosGraficoGeral.length)
@@ -66,7 +66,7 @@ export function BarrasTempoPorHashGeral() {
               content={<ChartTooltipContent indicator="dashed" />}
             />
             <Bar dataKey="umKK" fill="var(--color-umKK)" stackId='a' />
-            <Bar dataKey="dezKK" fill="var(--color-dezKK)" stackId='a' />
+            <Bar dataKey="cincoKK" fill="var(--color-cincoKK)" stackId='a' />
             <Bar dataKey="vinteKK" fill="var(--color-vinteKK)" stackId='a' />
             </BarChart>
         </ChartContainer>
