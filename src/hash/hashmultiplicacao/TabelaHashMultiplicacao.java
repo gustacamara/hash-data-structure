@@ -6,7 +6,7 @@ public class TabelaHashMultiplicacao implements ITabelaHash{
     public No[] tabela;
     public int tamanho;
     public int quantidadeColisoes = 0;
-    private String nome = "HashMultiplicação";
+    private String nome = "Multiplicação";
     private static final double constante = 0.6180339887;
 
 
