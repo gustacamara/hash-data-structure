@@ -48,4 +48,7 @@ O hash de multiplição gerou menos colisões, o que afetou o seu desempenho. Po
 
 Em relação à busca nas tabelas, pode-se concluir que para buscas em tabelas grandes os hash por módulo e dobramento são mais eficazes, pois o número de comparações é baixo. No entanto, o hash por multiplicação apresentou tempos de busca consistentemente menores, mesmo com mais comparações, devido à sua boa distribuição de chaves e acessos eficientes à memória, o que o torna muito eficaz em termos de desempenho prático.
 
+# IDE 
+
+A IDE escolhida para fazer o projeto foi o IntelliJ IDEA.
 
