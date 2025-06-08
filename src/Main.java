@@ -17,25 +17,34 @@ public class Main {
         int[] tamanhos = { 1000, 10000, 100000 };
         for (int tamanho : tamanhos) {
             tabela = new TabelaHashMultiplicacao(tamanho);
-
             roda(dados1kk, tabela, tamanho, "1 milhão");
+
+            tabela = new TabelaHashMultiplicacao(tamanho);
             roda(dados5kk, tabela, tamanho, "5 milhões");
+
+            tabela = new TabelaHashMultiplicacao(tamanho);
             roda(dados20kk, tabela, tamanho, "20 milhões");
         }
 
         for (int tamanho : tamanhos) {
             tabela = new TabelaHashMod(tamanho);
-
             roda(dados1kk, tabela, tamanho, "1 milhão");
+
+            tabela = new TabelaHashMod(tamanho);
             roda(dados5kk, tabela, tamanho, "5 milhões");
+
+            tabela = new TabelaHashMod(tamanho);
             roda(dados20kk, tabela, tamanho, "20 milhões");
         }
 
         for (int tamanho : tamanhos) {
             tabela = new TabelaHashDobramento(tamanho);
-
             roda(dados1kk, tabela, tamanho, "1 milhão");
+
+            tabela = new TabelaHashDobramento(tamanho);
             roda(dados5kk, tabela, tamanho, "5 milhões");
+
+            tabela = new TabelaHashDobramento(tamanho);
             roda(dados20kk, tabela, tamanho, "20 milhões");
         }
     }
@@ -55,7 +64,7 @@ public class Main {
         System.out.println("Total de colisões: " + tabela.quantidadeColisao());
 
         Relatorio.gerarRelatorioInsercao(tabela.getNome(), "Inserção", tamanho, tamanhoSeed, tempo);
-        
+
         int[] elementos = { 913246053, 700133575, 801209918, 495618793, 354125406 };
         int comparacoes = 0;
         long inicioBusca = System.currentTimeMillis();
