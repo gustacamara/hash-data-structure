@@ -1,5 +1,6 @@
 import { Gauge } from "lucide-react"
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts"
+import { dadosGraficoDobramento } from "@/data/data"
 
 import {
   Card,
@@ -16,18 +17,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-const dadosGrafico = [
-  { nome: "1 Milhão", ms: 1304 },
-  { nome: "1 Milhão", ms: 2345 },
-  { nome: "1 Milhão", ms: 4123 },
-  { nome: "10 Milhões", ms: 6233 },
-  { nome: "10 Milhões", ms: 1236 },
-  { nome: "10 Milhões", ms: 2345 },
-  { nome: "20 Milhões", ms: 3456 },
-  { nome: "20 Milhões", ms: 4534 },
-  { nome: "20 Milhões", ms: 1234 },
-]
-
 const chartConfig = {
   ms: {
     label: "ms",
@@ -36,10 +25,10 @@ const chartConfig = {
 
 function calculaVariacao(): number {
   let media: number = 0;
-  dadosGrafico.map((value) => {
-    media += value.ms
+  dadosGraficoDobramento.map((valor) => {
+    media += valor.ms
   })
-  media = media / dadosGrafico.length
+  media = media / dadosGraficoDobramento.length
   media = Math.round(media);
   return media;
 }
@@ -53,14 +42,14 @@ export function BarrasTempoPorHashDobramento() {
       </CardHeader>
       <CardContent >
         <ChartContainer config={chartConfig} >
-          <BarChart accessibilityLayer data={dadosGrafico}>
+          <BarChart accessibilityLayer data={dadosGraficoDobramento}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="nome"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 4)}
+              tickFormatter={(_, value) => (dadosGraficoDobramento[value]?.legenda ?? "").slice(0, 4)}
             />
             <ChartTooltip
               cursor={false}
