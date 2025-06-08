@@ -32,8 +32,11 @@ Trabalho da disciplina de Resolução de Problemas Estruturados em Computação,
 * Medição de tempo de execução do programa para efetuar a inserção e a busca.
 
 # Gráfico
-![alt text](image.png)
-![alt text](image-1.png)
+* Graficos com as comparações de Inserção para cada metódo de implementação das tabelas Hash:
+![alt text](graficosGerais.png)
+
+* Graficos com as comparações de Buscas para cada metódo de implementação das tabelas Hash:
+![alt text](graficosBusca.png)
 
 # Análises
 
